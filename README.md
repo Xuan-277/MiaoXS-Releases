@@ -1,12 +1,79 @@
-# MiaoXS Releases
+# MiaoXS
 
-MiaoXS Android 与 Windows 原生客户端安装包和更新发布仓库。
+MiaoXS 是一个运行在 **Android 手机和 Windows 电脑上的个人 AI 助手**。连接你自己的模型服务后，可以在聊天里提出任务，让它结合本机工具打开应用、执行命令、读取界面或处理文件，并在需要时向你确认。
 
-[下载最新版本](https://github.com/Xuan-277/MiaoXS-Releases/releases/latest)
+它适合希望在手机和电脑上使用自己选择的模型，同时让助手参与实际操作的人。Android 和 Windows 都是原生客户端，共用 C++ 核心，可以直接连接模型 API；日常使用不需要自建网关、设备服务或注册协作账号。应用不附带模型权重，模型计算通过你配置的服务完成。
 
-- Android：MiaoXS-Android-dev.apk
-- Windows 安装版：MiaoXS-Windows-x64-dev-Setup.exe
-- Windows 便携版：MiaoXS-Windows-x64-dev.zip
+[下载安装](https://github.com/Xuan-277/MiaoXS-Releases/releases/latest) · [版本记录](https://github.com/Xuan-277/MiaoXS-Releases/releases) · [反馈问题](https://github.com/Xuan-277/MiaoXS-Releases/issues)
 
-更新说明和 SHA256SUMS.txt 随每个版本发布。当前为开发测试版本；安装前请阅读对应 Release 说明。
-本仓库仅用于二进制分发，不包含模型密钥或本地用户数据。
+## 可以用来做什么
+
+- **聊天、阅读与整理内容**：与模型交流，按你的要求整理材料；选择支持图像的模型后，可以发送图片提问。
+- **操作自己的设备**：打开应用、检查软件的安装状态和版本、执行命令，或在授权后观察界面并点击、输入。能否完成具体任务取决于模型能力、系统权限和目标应用。
+- **切换不同模型**：保存多套模型配置，按任务切换；服务支持时可获取模型列表，减少手动填写。
+- **保存常用做法**：把写作规范、领域规则或处理步骤保存为技能，在后续任务中使用。
+- **扩展本机工具**：通过单独管理的插件添加可执行工具，新增执行权限需要你确认。
+- **生成图片和语音**：配置对应服务后生成图片，或将文字转为语音；提交前会说明请求内容和可能产生的费用。
+
+例如，你可以提出这些任务：
+
+> 查看这个软件的版本，然后帮我打开它。
+>
+> 在我指定的目录运行这条命令，把结果解释清楚。
+>
+> 按我保存的写作规范整理这段材料。
+
+## Android 和 Windows
+
+| 平台 | 主要操作方式 | 系统要求 |
+| --- | --- | --- |
+| Android | 本机命令、应用启动、安装状态查询，以及通过无障碍服务进行界面操作 | Android 8.0 及以上；支持 arm64-v8a、armeabi-v7a、x86_64 |
+| Windows | PowerShell / cmd、程序启动、窗口观察、点击输入及桌面截图 | Windows 10 及以上，x64 |
+
+Android 自动截图和基于截图的坐标操作需要 Android 11 及以上。当前提供 Android 和 Windows 安装包，iOS 不在当前发布范围内。
+
+## 开始使用
+
+1. 下载并安装对应客户端。
+2. 在模型设置中填写服务地址、模型名称和 API Key，也可以在服务支持时获取模型列表。
+3. 先发送一条普通消息，确认模型连接正常。
+4. 提出需要完成的任务；出现操作确认时，核对目标与内容，再选择允许或拒绝。
+
+文字聊天支持兼容的 Chat Completions、Responses 和 Completions 接口；执行工具需要模型及服务支持工具调用，图片理解需要模型支持图像。图片生成和语音服务单独配置。模型用量与收费由你选择的服务提供方决定。
+
+## 执行方式和权限
+
+默认采用 **每次执行询问**。执行前会说明操作内容、目标和结果接收地址。Android 弹窗支持展开完整说明；命令原文、收费提示等需要核对的信息会直接展示。
+
+也可以在 Android 聊天页的「权限」按钮或 Windows 顶部「权限」菜单中，开启 **完全权限（本次会话）**。授权范围内的设备操作可以连续执行，停止或关闭后撤销这份会话授权。它不会替你获得 root 或管理员权限，也不会绕过系统安装确认；媒体生成和新增插件权限仍按各自规则确认。
+
+默认优先后台运行，必要时再显示到前台。部分应用可能自行显示界面，手机上的普通点击、输入和截图仍需要目标应用在前台。执行结果不明确时不会自动重复执行；停止也不能撤回已经完成的操作。
+
+聊天历史和设置保存在设备上。发送消息或使用工具时，相关文字、结果或图像会交给你配置的模型服务；这不等于离线处理。
+
+## 技能与插件有什么区别
+
+| 类型 | 用途 | 举例 |
+| --- | --- | --- |
+| 技能（Skills） | 保存如何处理任务的规则和说明，不附带系统执行权限 | 写作格式、领域术语、检查步骤 |
+| 插件（Plugins） | 提供可执行的本机工具，需要相应授权 | 调用本机脚本或专用工具 |
+
+两者有独立的管理入口和实现，不把文字规则当作执行授权。
+
+## 下载与更新
+
+| 安装包 | 下载 |
+| --- | --- |
+| Android APK | [下载 Android 版](https://github.com/Xuan-277/MiaoXS-Releases/releases/latest/download/MiaoXS-Android-dev.apk) |
+| Windows 安装版 | [下载 Windows 安装包](https://github.com/Xuan-277/MiaoXS-Releases/releases/latest/download/MiaoXS-Windows-x64-dev-Setup.exe) |
+| Windows 便携版 | [下载 Windows ZIP](https://github.com/Xuan-277/MiaoXS-Releases/releases/latest/download/MiaoXS-Windows-x64-dev.zip) |
+
+客户端内可检查更新，也可以到 [Releases](https://github.com/Xuan-277/MiaoXS-Releases/releases) 查看每个版本的改动、校验文件和验证范围。Android 更新请直接覆盖安装，不要先卸载旧版，以免删除本地资料。
+
+目前提供开发测试版：Android 使用开发签名，Windows 安装包尚未签署 Authenticode。已有构建、单元测试和模拟器 / Wine 验证，具体记录随版本提供，不代表所有实体设备、输入法和第三方应用都已通过验收。
+
+## 关于这个仓库
+
+本仓库用于分发 MiaoXS 的 Android / Windows 安装包、更新说明和校验文件，不包含模型密钥或本地用户数据。更新记录放在 Releases；本页介绍项目的用途和使用方式。
+
+反馈问题时，请注明客户端版本、系统版本和复现步骤；不要附上 API Key 或私人聊天内容。
